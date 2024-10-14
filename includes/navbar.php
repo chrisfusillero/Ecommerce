@@ -17,12 +17,13 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="cart.php">Cart</a>
-                    </li>
+                     </li>
 
                      <!-- Dropdown for Signed-in User -->
+                      <?php if (isset($_SESSION["fullname"])){ ?>
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            JohnDoe <!-- Replace with dynamic username -->
+                            <?php echo $_SESSION["fullname"]; ?> <!-- Replace with dynamic username -->
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="dashboard.html">Dashboard</a></li>
@@ -30,8 +31,8 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.html">Logout</a></li>
                         </ul>
-                    </li>
-                    
+                     </li>
+                    <?php }?>
                 </ul>
             </div>
         </div>

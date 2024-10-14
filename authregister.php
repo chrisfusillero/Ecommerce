@@ -15,7 +15,7 @@
     echo $encryptPass;
     
     $host = "localhost";
-    $database = "ecommerce";
+    $database = "ecomm";
     $dbusername = "root";
     $dbpassword = "";
 
