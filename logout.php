@@ -1,17 +1,18 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"]."/app/config/Directories.php");
-session_start();
-require_once("includes/header.php");
-
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $_SESSION = [];
-        session_destroy();
-    }
+    require_once($_SERVER["DOCUMENT_ROOT"]."/app/config/Directories.php");
+    require_once(ROOT_DIR."includes/header.php");
 ?>
 
     <!-- Navbar -->
     <?php require_once(ROOT_DIR."includes/navbar.php"); ?>
 
+    <?php 
+        session_start();
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $_SESSION = [];
+            session_destroy();
+        }
+    ?>
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="card text-center shadow p-3" style="width: 24rem;">
             <div class="card-body">
@@ -22,5 +23,4 @@ require_once("includes/header.php");
         </div>
     </div>
 
-    
-    <?php require_once(ROOT_DIR."includes/footer.php"); ?>
+<?php require_once(ROOT_DIR."includes/footer.php"); ?>

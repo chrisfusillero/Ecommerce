@@ -12,6 +12,8 @@ $db = new DatabaseConnect(); //make a new database instance
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     //retrieve user input
+    $productId      = htmlspecialchars($_POST["id"]);
+    $productImage2  = htmlspecialchars($_POST["productImage2"]);
     $productName    = htmlspecialchars($_POST["productName"]);
     $productDesc    = htmlspecialchars($_POST["description"]);
     $category       = htmlspecialchars($_POST["category"]);
@@ -24,65 +26,73 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(trim($productName) == "" || empty($productName)){
             $_SESSION["error"] = "Product Name field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($productDesc) == "" || empty($productDesc)){
             $_SESSION["error"] = "Product Desc field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($category) == "" || empty($category)){
             $_SESSION["error"] = "Product Category field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($basePrice) == "" || empty($basePrice)){
             $_SESSION["error"] = "Product Category field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($numberOfStocks) == "" || empty($numberOfStocks)){
             $_SESSION["error"] = "Stocks field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($unitPrice) == "" || empty($unitPrice)){
             $_SESSION["error"] = "Unit Price field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
         if(trim($totalPrice) == "" || empty($totalPrice)){
             $_SESSION["error"] = "Total Price field is empty";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
 
-        if (!isset($_FILES['productImage']) || $_FILES['productImage']['error'] !== 0) {
+        if (!isset($productImage2) || empty($productImage2)) {
             $_SESSION["error"] = "No image attached";
                 
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
     //validation end    
     
-    //insert record to database
+    //update record to database
     try{
         $conn = $db->connectDB();
-        $sql  = "INSERT INTO products (product_name,product_description,category_id,base_price,stocks,unit_price,total_price,created_at,updated_at) " 
-                . " values (:p_product_name,:p_product_description,:p_category_id,:p_base_price,:p_stocks,:p_unit_price,:p_total_price,NOW(),NOW())";
+        $sql  = "UPDATE products SET products.product_name = :p_product_name,
+                                 products.product_description = :p_product_description,
+                                 products.category_id = :p_category_id,
+                                 products.base_price = :p_base_price,
+                                 products.stocks = :p_stocks,
+                                 products.unit_price = :p_unit_price,
+                                 products.total_price = :p_total_price,
+                                 products.updated_at = NOW() 
+                                 WHERE products.id = :p_id ";
+
         $stmt = $conn->prepare($sql);
         $data = [':p_product_name'        => $productName,
                 ':p_product_description' => $productDesc,
@@ -90,25 +100,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 ':p_base_price'          => $basePrice,
                 ':p_stocks'              => $numberOfStocks,
                 ':p_unit_price'          => $unitPrice,
-                ':p_total_price'         => $totalPrice ];
+                ':p_total_price'         => $totalPrice,
+                ':p_id'                  => $productId];
+
         if(!$stmt->execute($data)){
-            $_SESSION["error"] = "Failed to insert record";
-            header("location: ".BASE_URL."views/admin/products/add.php");
+            $_SESSION["error"] = "Failed to update the record";
+            header("location: ".BASE_URL."views/admin/products/edit.php");
             exit;
         }
         
-        $lastId = $conn->lastInsertId();
+        $lastId = $productId;
         
-        $error = processImage($lastId);
-        if($error){
-            $_SESSION["error"] = $error;
-            header("location: ".BASE_URL."views/admin/products/add.php");
-            exit;
+        if(isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0){
+            $error = processImage($lastId);
+            if($error){
+                $_SESSION["error"] = $error;
+                header("location: ".BASE_URL."views/admin/products/edit.php");
+                exit;
+            }
         }
-        
-        $_SESSION["success"] = "Product added successfully";
+
+        $_SESSION["success"] = "Product updated successfully";
         header("location: ".BASE_URL."views/admin/products/index.php");
         exit;
+        
     } catch (PDOException $e){
         echo "Connection Failed: " . $e->getMessage();
         $db = null;
