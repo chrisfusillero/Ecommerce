@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 04, 2024 at 02:34 AM
+-- Generation Time: Dec 06, 2024 at 01:33 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -52,7 +52,9 @@ INSERT INTO `carts` (`id`, `user_id`, `product_id`, `quantity`, `unit_price`, `t
 (5, 9, 41, 1, 2560, 2560, 1, NULL, '2024-12-03 15:36:19', '2024-12-03 15:36:19'),
 (6, 9, 41, 1, 2560, 2560, 1, NULL, '2024-12-03 15:36:23', '2024-12-03 15:36:23'),
 (7, 9, 41, 1, 2560, 2560, 1, NULL, '2024-12-03 15:36:25', '2024-12-03 15:36:25'),
-(8, 9, 41, 1, 2560, 2560, 1, NULL, '2024-12-03 15:36:28', '2024-12-03 15:36:28');
+(8, 9, 41, 1, 2560, 2560, 1, NULL, '2024-12-03 15:36:28', '2024-12-03 15:36:28'),
+(9, 10, 46, 1, 14670, 14670, 0, NULL, '2024-12-05 20:43:50', '2024-12-05 20:43:50'),
+(10, 10, 49, 1, 26990, 26990, 0, NULL, '2024-12-05 23:53:24', '2024-12-05 23:53:24');
 
 -- --------------------------------------------------------
 
@@ -171,7 +173,8 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `is_admin`, `rema
 (5, 'dummy joe', 'djoe2003', '$2y$10$lZqzLrF2HXFYja/HqpOcEeJGMfy1YH3CdUZ7b4bu.d13y8UrskCZC', 0, NULL, '2024-10-19 15:08:53', '2024-10-19 15:08:53'),
 (7, 'admin', 'admin', '$2y$10$YPG71Y2G6ZXDd2uJvkRMi.ncKiYe/ISRB8/XsPQb0pV/IAfZjGdfi', 1, NULL, '2024-10-26 02:19:23', '2024-10-26 02:19:23'),
 (8, 'reguser1', 'reguser1', '$2y$10$4czVTFLR3e/69RP2wNM4ru/7hRorINqCHOUPsvCS3N8wWvt6H/qMm', 0, NULL, '2024-11-23 14:44:11', '2024-11-23 14:44:11'),
-(9, 'Miguel Andrei del Rosario', 'miguelandrei@sdca.edu.ph', '$2y$10$aQPV9chJkYiEdpPAnQzxlO.smrmBlOIjxDbES02faZ7pV8ktbYBXa', 0, NULL, '2024-12-03 15:35:55', '2024-12-03 15:35:55');
+(9, 'Miguel Andrei del Rosario', 'miguelandrei@sdca.edu.ph', '$2y$10$aQPV9chJkYiEdpPAnQzxlO.smrmBlOIjxDbES02faZ7pV8ktbYBXa', 0, NULL, '2024-12-03 15:35:55', '2024-12-03 15:35:55'),
+(10, 'Yoo Jimin', 'katarinabluu@email.com', '$2y$10$QlN57.8GkXvOhhvPywToMezSCkwODo3Q17WMuoBEHUiHoMPWLrZF.', 0, NULL, '2024-12-05 20:35:40', '2024-12-05 20:35:40');
 
 --
 -- Indexes for dumped tables
@@ -210,7 +213,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -228,7 +231,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

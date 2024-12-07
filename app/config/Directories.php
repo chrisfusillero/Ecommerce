@@ -1,4 +1,4 @@
 <?php 
-define('BASE_URL', "http://ecommerce-2.test/");
+define('BASE_URL', "https://cfusillero.futurewebbuilders.design/");
 define('ROOT_DIR', $_SERVER["DOCUMENT_ROOT"]."/");
 

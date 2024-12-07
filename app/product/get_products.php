@@ -3,7 +3,6 @@ include(ROOT_DIR."app/config/DatabaseConnect.php");
 $db = new DatabaseConnect();
 $conn = $db->connectDB();
 
-//this variable will hold product data from db
 $productList = [];
 
 try {
